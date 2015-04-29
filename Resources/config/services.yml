@@ -1,0 +1,11 @@
+parameters:
+  kamran_form.type.groupchoicelist.class: Kamran\GroupChoiceListBundle\Form\Type\GroupChoiceType
+
+services:
+
+  #form
+  kamran_form.type.groupchoicelist:
+    class: %kamran_form.type.groupchoicelist.class%
+    arguments: ['@doctrine.orm.entity_manager']
+    tags:
+      - { name: form.type, alias: groupchoicelist }
