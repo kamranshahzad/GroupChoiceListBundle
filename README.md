@@ -2,7 +2,7 @@
 
 ## Description
 
-This bundle provides the group choice list form field
+This bundle provides the group choice list(options) custom form type.
 
 ![alt text](https://github.com/kamranshahzad/GroupChoiceListBundle/blob/master/Resources/public/images/group_choice_list_screenshot.png "GroupChoiceList screenshot")
 
@@ -30,32 +30,32 @@ GroupChoiceList provides a form type that show the multiple choices in group for
         // add group_choice_list as a form type in your form 
     	$builder->add('tags','groupchoicelist',array(
             'label'=>'Tags',
-            'choice_list' => $this->em->getRepository('KamranTagsBundle:Tags')->findByGroup(),
+            'choice_list' => $data_array,
             'entity_class' => 'KamranTagsBundle:Tags'
         ));
 	}
-	// entity_repository.php
-	public function findByGroup(){
-        $result = $this->createQueryBuilder('t')
-            ->select('t , tt ')
-            ->leftJoin('t.type', 'tt')->orderBy('t.type')
-            ->getQuery()->getResult();
-        $groupOptionsArray = array();
-        $groupInfoArray = array();
-        $groupArray = array();
-        foreach($result as $object){
-            $groupOptionsArray[$object->getType()->getId()][$object->getId()] = $object->getName();
-            $groupInfoArray[$object->getType()->getId()] = array('id'=>$object->getType()->getId(),'title'=>$object->getType()->getName());
-        }
-
-        foreach($groupOptionsArray as $id=>$optionsArray){
-            $groupArray[] = array('group'=>$groupInfoArray[$id],
-                'options' => $optionsArray
-            );
-        }
-        return $groupArray;
-    }
 ```
+    * `choice_list` : This takes array data in proper format which is given below.
+    * `entity_class`: Set entity class
+
+``` php
+    // data array format for 'choice_list' option
+    $data_array = array(
+        array(
+            'group'   => array('id'=>1,'title'=>'PHP'),
+            'options' => array(1=>'Symfony',2=>'Laravel',3=>'Wordpress',4=>'Magento',5=>'Drupal')
+        ),
+        array(
+            'group'   => array('id'=>2,'title'=>'Javascript'),
+            'options' => array(6=>'JQuery',7=>'NodeJS',8=>'BackboneJS',9=>'AngularJS',10=>'UnderscoreJS')
+        ),
+        array(
+            'group'   => array('id'=>3,'title'=>'Python'),
+            'options' => array(11=>'Django',12=>'Flask')
+        ),
+    );
+```     
+
 
 ## Reporting an issue or feature request.
 
