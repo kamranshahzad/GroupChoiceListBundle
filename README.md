@@ -37,6 +37,7 @@ GroupChoiceList provides a form type that show the multiple choices in group for
 ```
     * `choice_list` : This takes array data in proper format which is given below.
     * `entity_class`: Set entity class
+    * `list_type`:    'checkbox' for group of checkboxes (default), 'radiobutton' for group of radiobuttons
 
 ``` php
     // data array format for 'choice_list' option
